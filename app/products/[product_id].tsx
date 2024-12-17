@@ -1,11 +1,28 @@
-
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { useState } from "react";
+import { View, Text, Button } from "react-native";
+import Slider from "@react-native-community/slider";
 
 const ProductPage = () => {
-  return <View>
-    <Text>ProductPage</Text>
-  </View>
-}
+  const [value, setValue] = useState(0);
 
-export default ProductPage
+  const handlePay = async () => {};
+
+  return (
+    <View>
+      <Text>Donate amount $ {Math.floor(value)}</Text>
+
+      <Slider
+        style={{ width: 200, height: 40 }}
+        minimumValue={0}
+        maximumValue={1}
+        minimumTrackTintColor="#FFFFFF"
+        maximumTrackTintColor="#000000"
+        onValueChange={setValue}
+        value={value}
+      />
+
+    </View>
+  );
+};
+
+export default ProductPage;
