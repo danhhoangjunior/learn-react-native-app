@@ -51,7 +51,7 @@ export default function HomeScreen() {
 
   const fetchProducts = () => {
     api.get(
-        "https://ui8.net/api/categories/ui-kits?sort=recent&page=1&search=Kit&tag=55c4f07ea73053a55af4c079&featured=false"
+        "/categories/ui-kits?sort=recent&page=1",
       )
       .then((response) => {
         setProducts(response.data.data.products);

@@ -1,18 +1,42 @@
 import { View, Text, Pressable, Image } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   DrawerContentScrollView,
-  DrawerItemList,
-  useDrawerStatus,
 } from "@react-navigation/drawer";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useNavigation } from "expo-router";
+import { useNavigation, useRouter, useSegments } from "expo-router";
 import { DrawerActions } from "@react-navigation/native";
+
+const MenuData = [  
+  {
+    title: "Home",
+    icon: "home", 
+    route: "(tabs)",
+  },
+  {
+    title: "Learn",
+    icon: "book",
+    route: "learn",
+  },
+  {
+    title: "Profile",
+    icon: "user",
+    route: "profile",
+  },
+  {
+    title: "Settings",
+    icon: "settings",
+    route: "explore",
+  }]
 
 export default function CustomDrawerContent(props: any) {
   const { bottom } = useSafeAreaInsets();
   const navigation = useNavigation();
-
+  
+  const router = useRouter();
+  const segment = useSegments();
+  const currentRoute = segment[segment.length - 1];
+ 
   const closeDrawer = () => {
     navigation.dispatch(DrawerActions.closeDrawer());
   };
@@ -26,7 +50,17 @@ export default function CustomDrawerContent(props: any) {
             source={require("@/assets/images/icon.png")}
           />
         </View>
-        <DrawerItemList {...props} />
+       {MenuData.map((item, index) => ( 
+        <Pressable
+          key={index}
+          onPress={() => {
+            router.push(item.route as any);
+          }}
+          className={`${currentRoute === item.route ? 'bg-[#34977d]' : 'bg-white'} h-[56px] flex justify-center rounded-lg px-4 mb-2`}
+        >
+          <Text className={`${currentRoute === item.route ? 'text-white font-semibold' : 'text-black font-normal'} text-[16px]`}>{item.title}</Text>
+        </Pressable>
+        ))}
       </DrawerContentScrollView>
 
       <Pressable

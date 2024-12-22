@@ -18,7 +18,9 @@ export default function Layout() {
             display: width >= 768 ? "flex" : "none",
           },
         }}
-      />
+      >
+        <Drawer.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Drawer>
     </GestureHandlerRootView>
   );
 }
